@@ -36,6 +36,10 @@ jobs:
             cache: maven
         - name: Package without tests
           run: ./mvnw -B -ntp -DskipTests package
+        - name: Build with Maven
+          run: |
+            chmod +x ./mvnw
+            ./mvnw -B -ntp -DskipTests package
 
     test:
       name: Tests
@@ -56,3 +60,4 @@ jobs:
           with:
             name: surefire-reports
             path: target/surefire-reports/
+
