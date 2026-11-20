@@ -1,6 +1,9 @@
 package com.lecoffre.project.model;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 
 @Entity
 @Table(name="users")
@@ -11,12 +14,16 @@ public class Users {
     @Column(name="id")
     private Long id;
 
+    @Email
+    @NotBlank
     @Column(name = "email", nullable = false, length = 255, unique = true)
     private String email;
 
+    @NotBlank
     @Column(name="password", nullable = false, length = 255)
     private String password;
 
+    @NotNull
     @Enumerated(EnumType.STRING)
     @Column(name="role", nullable = false, length = 20)
     private Role role;

@@ -1,6 +1,9 @@
 package com.lecoffre.project.model;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
@@ -14,21 +17,25 @@ public class Secret {
     @Column(name="id")
     private Long id;
 
+    @NotNull
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "owner_id", nullable = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
-    private Users users;
+    private Users owner;
 
+    @NotBlank
+    @Size(max = 100)
     @Column(name = "label", length = 100, nullable = false)
     private String label;
 
+    @NotBlank
     @Column(name="value", nullable = false, columnDefinition = "TEXT")
     private String value;
 
     public Secret(){}
 
-    public Secret(Users users, String label, String value){
-        this.users=users;
+    public Secret(Users owner, String label, String value){
+        this.owner=owner;
         this.label=label;
         this.value=value;
     }
@@ -37,8 +44,8 @@ public class Secret {
         return id;
     }
 
-    public Users getUsers() {
-        return users;
+    public Users getOwner() {
+        return owner;
     }
 
     public String getLabel() {
@@ -49,8 +56,8 @@ public class Secret {
         return value;
     }
 
-    public void setUsers(Users users) {
-        this.users = users;
+    public void setOwner(Users owner) {
+        this.owner = owner;
     }
 
     public void setLabel(String label) {

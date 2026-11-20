@@ -1,5 +1,7 @@
 package com.lecoffre.project.model;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import org.hibernate.annotations.CreationTimestamp;
 import java.time.LocalDateTime;
 
@@ -12,14 +14,17 @@ public class AccessLog {
     @Column(name="id")
     private Long id;
 
+    @NotNull
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", nullable = false)
     private Users users;
 
+    @NotNull
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "secret_id", nullable = false)
     private Secret secret;
 
+    @NotNull
     @Enumerated(EnumType.STRING)
     @Column(name = "result", nullable = false, length = 20)
     private Result result;
